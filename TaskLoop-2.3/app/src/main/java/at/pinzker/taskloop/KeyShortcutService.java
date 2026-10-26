@@ -1,0 +1,7 @@
+package at.pinzker.taskloop;
+import android.accessibilityservice.*;import android.view.*;import android.view.accessibility.*;import android.content.*;import android.os.*;
+public class KeyShortcutService extends AccessibilityService {
+ boolean up,down;long last;Handler handler=new Handler();Runnable launch=new Runnable(){public void run(){if(up&&down&&System.currentTimeMillis()-last>2000){last=System.currentTimeMillis();try{startActivity(new Intent(KeyShortcutService.this,MainActivity.class).setAction("VOICE").putExtra("voice",true).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));Store.log(KeyShortcutService.this,"Tastenkombination erkannt");}catch(Exception e){Store.log(KeyShortcutService.this,"Tastenkombination: "+e.getMessage());}}}};
+ protected boolean onKeyEvent(KeyEvent event){int k=event.getKeyCode();if(k!=KeyEvent.KEYCODE_VOLUME_UP&&k!=KeyEvent.KEYCODE_VOLUME_DOWN)return false;if(event.getAction()==KeyEvent.ACTION_DOWN){if(k==KeyEvent.KEYCODE_VOLUME_UP)up=true;else down=true;if(up&&down&&event.getRepeatCount()==0){handler.removeCallbacks(launch);handler.postDelayed(launch,800);}}else if(event.getAction()==KeyEvent.ACTION_UP){if(k==KeyEvent.KEYCODE_VOLUME_UP)up=false;else down=false;handler.removeCallbacks(launch);}return false;}
+ public void onAccessibilityEvent(AccessibilityEvent e){} public void onInterrupt(){up=down=false;handler.removeCallbacks(launch);}public void onDestroy(){handler.removeCallbacksAndMessages(null);super.onDestroy();}
+}

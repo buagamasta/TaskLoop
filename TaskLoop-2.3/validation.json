@@ -1,0 +1,18 @@
+{
+  "version": "2.3",
+  "version_code": 13,
+  "source_compiled": false,
+  "apk_created": false,
+  "device_tested": false,
+  "target_sdk": 36,
+  "compiled_with_sdk": 35,
+  "signing_certificate_sha256": "2e2dfe7cde71129b11160bd3811f2891eb97d9ad6e93a18bcb809cf97d24dc41",
+  "checks": [
+    "Task records store category 0=work by default and category 1=personal",
+    "missing category fields in earlier task records default to work",
+    "pause controls support all, work and personal reminders",
+    "pause durations include 24 hours, 3, 7, 14 and 30 days, inclusive date, or until resumed",
+    "AlarmReceiver resumes reminders after a scheduled pause expires",
+    "Android SDK and JDK compiler were not available in the current workspace; APK compilation and signature verification not completed"
+  ]
+}

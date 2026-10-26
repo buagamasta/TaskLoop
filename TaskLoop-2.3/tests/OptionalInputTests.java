@@ -1,0 +1,5 @@
+import at.pinzker.taskloop.DraftDefaults;
+public class OptionalInputTests {
+ static int count;static void check(boolean pass,String name){count++;if(!pass)throw new AssertionError(name);}
+ public static void main(String[] args){check(DraftDefaults.title("","","").equals("Neue Aufgabe"),"empty draft can be saved");check(DraftDefaults.title(null,null,null).equals("Neue Aufgabe"),"missing inputs can be saved");check(DraftDefaults.title("  ","Einkaufen","").equals("Einkaufen"),"raw task without separate title");check(DraftDefaults.title("","","  Rechnung prüfen  ").equals("Rechnung prüfen"),"note only draft");check(DraftDefaults.title("Titel","Freitext","Notiz").equals("Titel"),"explicit title takes precedence");check(DraftDefaults.number("",1,525600)==1,"blank interval uses default");check(DraftDefaults.number("",15,10080)==15,"blank pause uses default");check(DraftDefaults.number("0",15,10080)==15,"zero pause remains safe");check(DraftDefaults.number("9999999999999",15,10080)==15,"overflow does not block save");check(DraftDefaults.number("20",15,10080)==20,"chosen pause retained");System.out.println("PASS: "+count+" Prüfungen für optionale Eingaben");}
+}
