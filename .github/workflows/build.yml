@@ -28,7 +28,7 @@ jobs:
           fi
           export ANDROID_SDK_ROOT="$ANDROID_HOME"
           python3 build.py
-          cp ../TaskLoop-2.3.apk "$GITHUB_WORKSPACE/TaskLoop-2.3.apk"
+          if [ ! ../TaskLoop-2.3.apk -ef "$GITHUB_WORKSPACE/TaskLoop-2.3.apk" ]; then cp ../TaskLoop-2.3.apk "$GITHUB_WORKSPACE/TaskLoop-2.3.apk"; fi
       - uses: actions/upload-artifact@v4
         with:
           name: TaskLoop-APK
